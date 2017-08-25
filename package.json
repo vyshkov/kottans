@@ -1,13 +1,13 @@
 {
-  "name": "preact-boilerplate",
-  "version": "6.0.0",
-  "description": "Ready-to-go Preact starter project powered by webpack.",
+  "name": "Kottans",
+  "version": "1.0.0",
+  "description": "This is fun task",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --progress",
     "start": "serve build -s -c 1",
     "prestart": "npm run build",
     "build": "cross-env NODE_ENV=production webpack --progress",
-    "test": "npm run -s lint && jest --coverage",
+    "test": "jest --coverage",
     "test:watch": "npm run -s test -- --watch",
     "lint": "eslint src test"
   },
