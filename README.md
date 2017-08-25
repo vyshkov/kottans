@@ -7,4 +7,5 @@ Features:
 - [x] smaller 14 kb gzip
 - [x] https
 - [x] preact
+- [x] CI/CD
 
