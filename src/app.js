@@ -12,6 +12,8 @@ import GithubActionCreator from './actions/GithubActionCreator';
 
 import './styles/app.css';
 
+console.log("Starting app..");
+
 const store = createStore(reducer);
 
 const enableUrlController = store => {
