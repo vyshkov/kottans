@@ -1,0 +1,37 @@
+.kottans-search-bar {
+	background-color: white;
+	color: white;
+	display: flex;
+	padding: 10px;
+	box-shadow: 0 0 20px black;
+}
+
+.kottans-search-bar .kottans-text-input {
+	border: 1px solid #5c6bc1;
+	border-radius: 2px;
+	padding: 8px 16px;
+	font-size: 24px;
+	margin: 8px;
+	flex: 2;
+	opacity: 0.7;
+	transition: 0.3s;
+	outline: none;
+}
+
+.kottans-search-bar .kottans-search-button:hover,
+.kottans-search-bar .kottans-text-input:focus,
+.kottans-search-bar .kottans-text-input:hover {
+	opacity: 1;
+}
+
+.kottans-search-bar .kottans-search-button {
+	margin: 8px;
+	font-size: 24px;
+	background: #5c6bc1;
+	border: none;
+	color: white;
+	border-radius: 2px;
+	cursor: pointer;
+	transition: 0.3s;
+	opacity: 0.7;
+}
