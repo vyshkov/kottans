@@ -1,9 +1,9 @@
 language: node_js
 node_js:
   - stable
-
 script: npm run build
-
+after_success:
+  - surge --project ./build/ --domain kottans.surge.sh
 deploy:
   provider: surge
   project: ./build/
