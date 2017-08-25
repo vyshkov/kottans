@@ -95,7 +95,10 @@ module.exports = {
 		new HtmlWebpackPlugin({
 			template: './index.ejs',
 			minify: { collapseWhitespace: true }
-		})
+		}),
+		new CopyWebpackPlugin([
+			{ from: '404.html' },
+		])
 	]).concat(ENV==='production' ? [
 		new webpack.optimize.UglifyJsPlugin({
 			output: {

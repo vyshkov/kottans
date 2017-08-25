@@ -15,6 +15,15 @@ import './styles/app.css';
 const store = createStore(reducer);
 
 const enableUrlController = store => {
+	/*
+	 * This function needed to trick free hostings that don't work SPAs.
+	 */
+	const updateForwardedUrl = function () {
+		if (location.search.startsWith('?forwardedFrom=')) {
+			const decoded = decodeURIComponent(location.search.substring('?forwardedFrom='.length));
+			history.pushState(null, null, decoded);
+		}
+	};
 	const updateState = () => {
 		let urlRepo = window.location.pathname.slice(1);
 		if (urlRepo) {
@@ -22,6 +31,7 @@ const enableUrlController = store => {
 			store.dispatch(GithubActionCreator.findRepos(urlRepo, true));
 		}
 	};
+	updateForwardedUrl();
 	updateState();
 	window.addEventListener('popstate', updateState, false);
 };
