@@ -5,9 +5,10 @@ script: npm run build
 after_success:
   - surge --project ./build/ --domain kottans.surge.sh
 deploy:
-  provider: surge
-  project: ./build/
-  domain: kottans.surge.sh
-branches:
-  only:
-  - source
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  local_dir: build
+  on:
+    branch: master
+
