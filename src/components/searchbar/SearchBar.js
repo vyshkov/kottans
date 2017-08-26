@@ -22,6 +22,7 @@ export default class SearchBar extends Component {
 					onInput={this.props.updateSearch}
 					value={this.props.value}
 					onKeyPress={this.handleEnterPress}
+					size="10"
 				/>
 				<input
 					disabled={this.props.loading}
