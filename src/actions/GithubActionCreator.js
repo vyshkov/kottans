@@ -56,6 +56,13 @@ export default class GithubActionCreator {
 		};
 	}
 
+	static viewConfigChanged(payload) {
+		return {
+			type: t.VIEW_CONFIG,
+			payload
+		};
+	}
+
 	static loadRepoDetails(repo) {
 		return dispatch => {
 			dispatch(this.updateDialogInfo(null));

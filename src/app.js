@@ -38,6 +38,8 @@ const enableUrlController = store => {
 };
 
 enableUrlController(store);
+window.store = store;
+console.log('!!!!!', store);
 
 export default () => (
 	<Provider store={store}>

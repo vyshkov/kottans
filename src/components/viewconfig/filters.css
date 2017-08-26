@@ -1,0 +1,34 @@
+.github-filters-container {
+	overflow: hidden;
+	background-color: white;
+	margin: 30px;
+	transition: 0.3s;
+	border-radius: 2px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+	position: relative;
+	cursor: pointer;
+	font-size: 17px;
+}
+
+.github-filters-container > div {
+	padding: 10px;
+}
+
+.github-filters-container .header {
+	font-weight: bold;
+	box-shadow: 0 0 10px black;
+	background-color: #f0f0f0;
+}
+
+.github-filters-container .filters {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.github-filters-container .filters > div {
+	margin: 5px;
+	background-color: #f0f0f0;
+	padding: 10px;
+	border-radius: 4px;
+}
