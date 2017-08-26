@@ -2,33 +2,47 @@ import t from '../actions/GithubActionTypes';
 
 const initialState = {
 	search: 'talend',
+	repos: [],
 	viewConfig: {
-		hasOpenIssues: false,
-		hasTopics: false,
-		starsGtThan: 0,
-		modifiedAfter: null,
-		selectedLanguage: 'all',
+		has_open_issues: false,
+		has_topics: false,
+		starred_gt: 0,
+		updated_at: null,
+		language: 'all',
 		allLanguages: ['all'],
-		selectedType: 'all',
+		type: 'all',
 		allTypes: ['all', 'forks', 'sources'],
-		selectedSort: 'name',
-		allSorts: ['name', 'stars', 'issues', 'date']
+		sort: 'name',
+		allSorts: ['name', 'stars', 'issues', 'updated'],
+		order: 'desc'
 	}
 };
 
+const sortMapping = {
+	name: 'name',
+	stars: 'stargazers_count',
+	issues: 'open_issues_count',
+	updated: 'updated_at'
+};
+
 const applyFilterAndSort = (items, config) => (
-	items.filter((item) => {
-		if (config.hasOpenIssues && item.open_issues_count === 0 ||
-			config.hasTopics && !item.has_wiki ||
-			config.selectedLanguage !== 'all' && config.selectedLanguage !== item.language ||
-			((config.selectedType === 'forks' && !item.fork) || (config.selectedType === 'sources' && item.fork)) ||
-			config.modifiedAfter !== null && config.modifiedAfter.getTime() > new Date(item.updated_at).getTime() ||
-			config.starsGtThan > item.stargazers_count) {
-			return false;
-		}
-		return true;
-	})
-)
+	items.filter((item) => (
+		!(config.has_open_issues && item.open_issues_count === 0 ||
+			config.has_topics && !item.has_wiki ||
+			config.language !== 'all' && config.language !== item.language ||
+			((config.type === 'forks' && !item.fork) || (config.type === 'sources' && item.fork)) ||
+			config.updated_at !== null && config.updated_at.getTime() > new Date(item.updated_at).getTime() ||
+			config.starred_gt > item.stargazers_count)
+	))
+		.sort((first, second) => {
+			const column = sortMapping[config.sort];
+			const wordA = first[column];
+			const wordB = second[column];
+			if (wordA < wordB) return 1;
+			if (wordA > wordB) return -1;
+			return 0;
+		})
+);
 
 const reducer = (state = initialState, action) => {
 	switch (action.type) {
@@ -56,9 +70,14 @@ const reducer = (state = initialState, action) => {
 		case t.DIALOG_INFO: {
 			return { ...state, dialogInfo: action.payload };
 		}
-		case t.VIEW_CONFIG: {
+		case t.VIEW_CONFIG_REPLACE: {
 			const visibleItems = applyFilterAndSort(state.repos, action.payload);
 			return { ...state, visibleItems, viewConfig: action.payload };
+		}
+		case t.VIEW_CONFIG_UPDATE: {
+			const viewConfig = { ...state.viewConfig, ...action.payload };
+			const visibleItems = applyFilterAndSort(state.repos, viewConfig);
+			return { ...state, visibleItems, viewConfig };
 		}
 		default: return state;
 	}

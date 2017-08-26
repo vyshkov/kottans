@@ -7,7 +7,7 @@
 First of all, thank you for this interesting task and your time !
 
 ### You can check out result here:
- - [x] deployed app: https://kottans.surge.sh/
+ - [x] deployed app: https://kottans.surge.sh/kottans?starred_gt=0&language=all&type=forks&sort=stars&order=desc
  - [x] built app: https://github.com/vyshkov/kottans/tree/master
  - [x] Travis: https://travis-ci.org/vyshkov/kottans
  

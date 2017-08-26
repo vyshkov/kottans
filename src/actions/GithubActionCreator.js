@@ -14,11 +14,19 @@ const showError = e => console.warn(e);
 
 const updateUrlState = (disablePushUrl, name) => {
 	if (!disablePushUrl) {
-		const url = location.href;
-		const params = url.indexOf('?') === -1 ? '' : url.substring(url.indexOf('?'));
+		const params = location.search ? '' : location.search;
 		window.history.pushState(null, null, `/${name}${params}`);
 	}
 };
+
+const convertConfigToUrlParams = config => (
+	Object.keys(config).reduce((res, curr) => {
+		const value = config[curr];
+		if (value === true) return `${res}${curr}&`;
+		if (typeof value === 'string' || typeof value === 'number') return `${res}${curr}=${value}&`;
+		return res;
+	}, '?').slice(0, -1)
+);
 
 export default class GithubActionCreator {
 	static updateSearch(payload){
@@ -57,8 +65,9 @@ export default class GithubActionCreator {
 	}
 
 	static viewConfigChanged(payload) {
+		history.pushState(null, null, convertConfigToUrlParams(payload));
 		return {
-			type: t.VIEW_CONFIG,
+			type: t.VIEW_CONFIG_REPLACE,
 			payload
 		};
 	}
@@ -111,6 +120,13 @@ export default class GithubActionCreator {
 	static setDialogVisible(payload) {
 		return {
 			type: t.DIALOG_VISIBLE,
+			payload
+		};
+	}
+
+	static mergeViewConfig(payload) {
+		return {
+			type: t.VIEW_CONFIG_UPDATE,
 			payload
 		};
 	}

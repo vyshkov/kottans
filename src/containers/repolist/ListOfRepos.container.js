@@ -13,6 +13,9 @@ const ListOfRepos = props => {
 	return (
 		<div className="list-of-repos">
 			<SortAndFilter />
+			{ props.repos.length === 0  && (
+				<div className="kottans-welcome">No items found by you filter query</div>
+			)}
 			{props.repos && props.repos.map(repo => <Card repo={repo} openDetails={props.openDetails}/>)}
 		</div>
 	);

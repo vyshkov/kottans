@@ -15,6 +15,16 @@ import './styles/app.css';
 
 const store = createStore(reducer);
 
+const extractParams = string => string.substring(1).split("&").reduce((res, curr) => {
+	if (curr.indexOf('=') === -1) {
+		res[decodeURIComponent(curr)] = true;
+	} else {
+		const tokens = curr.split('=');
+		res[decodeURIComponent(tokens[0])] = decodeURIComponent(tokens[1]);
+	}
+	return res;
+} , {});
+
 const enableUrlController = store => {
 	/*
 	 * This function needed to trick free hostings that don't work SPAs.
@@ -31,6 +41,9 @@ const enableUrlController = store => {
 			store.dispatch(GithubActionCreator.updateSearch(urlRepo));
 			store.dispatch(GithubActionCreator.findRepos(urlRepo, true));
 		}
+		if (location.search){
+			store.dispatch(GithubActionCreator.mergeViewConfig(extractParams(document.location.search)));
+		}
 	};
 	updateForwardedUrl();
 	updateState();
@@ -38,8 +51,6 @@ const enableUrlController = store => {
 };
 
 enableUrlController(store);
-window.store = store;
-console.log('!!!!!', store);
 
 export default () => (
 	<Provider store={store}>
