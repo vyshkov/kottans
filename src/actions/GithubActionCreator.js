@@ -122,11 +122,19 @@ export default class GithubActionCreator {
 			fetch(`https://api.github.com/users/${name}`)
 				.then(errorHandler(`Can't find user ${name}`))
 				.then(resp => resp.json())
-				.then(resp => resp.type === "User")
-				.then(isUser => fetch(`https://api.github.com/${isUser ? 'users' : 'orgs'}/${name}/repos`))
-				.then(resp => resp.json())
 				.then(resp => {
-					dispatch(this.updateListOfRepos(resp));
+					const isUser = resp.type === 'User';
+					const baseUrl = `https://api.github.com/${isUser ? 'users' : 'orgs'}/${name}/repos?per_page=100&page=`;
+					const length = Math.ceil(resp.public_repos / 100);
+					return Promise.all(
+						new Array(length)
+							.fill(0)
+							.map((val, i) => (fetch(`${baseUrl}${i+1}`).then(resp => resp.json())))
+					);
+				})
+				.then(resp => {
+					const all = resp.reduce((res, curr) => [...res, ...curr], []);
+					dispatch(this.updateListOfRepos(all));
 					updateUrlState(disablePushUrl, name);
 					dispatch(this.loading(false));
 				})
