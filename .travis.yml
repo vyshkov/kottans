@@ -8,3 +8,6 @@ deploy:
   provider: surge
   project: ./build/
   domain: kottans.surge.sh
+branches:
+  only:
+  - source
