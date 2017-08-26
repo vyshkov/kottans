@@ -98,6 +98,7 @@ module.exports = {
 		}),
 		new CopyWebpackPlugin([
 			{ from: '404.html' },
+			{ from: '../.travis.yml' },
 		])
 	]).concat(ENV==='production' ? [
 		new webpack.optimize.UglifyJsPlugin({
