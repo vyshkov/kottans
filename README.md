@@ -1,4 +1,4 @@
-#GithubApi kottans client
+# GithubApi kottans client
 
 [![Build Status](https://travis-ci.org/vyshkov/kottans.svg?branch=source)](https://travis-ci.org/vyshkov/kottans)
 
