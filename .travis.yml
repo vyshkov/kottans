@@ -4,9 +4,6 @@ node_js:
 script: npm run build
 after_success:
   - surge --project ./build/ --domain kottans.surge.sh
-branches:
-  except:
-  - master
 deploy:
   provider: pages
   skip_cleanup: true
@@ -15,4 +12,7 @@ deploy:
   target_branch: master
   on:
     branch: source
+branches:
+  only:
+  - source
 
