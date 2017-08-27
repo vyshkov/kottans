@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+	<!-- this is trick to make free hosting work with SPA.
+	Don't pay attention to this file. We just need normal hosting :) Now we can use surge routing for free -->
+	<script>
+		const url = location.href.replace(location.origin, "");
+		location.href = '/?forwardedFrom='+encodeURIComponent(url);
+	</script>
+</body>
+</html>
