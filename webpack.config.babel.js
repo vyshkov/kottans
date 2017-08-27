@@ -151,6 +151,6 @@ module.exports = {
 		contentBase: './src',
 		historyApiFallback: true,
 		open: true,
-		openPage: '',
+		openPage: ''
 	}
 };

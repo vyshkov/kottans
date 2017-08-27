@@ -175,6 +175,6 @@ export default class GithubActionCreator {
 					dispatch(this.error(`Can't find repositories of the user '${name}'. ${e.message}`));
 					console.error(e);
 				});
-		}
+		};
 	}
 }
