@@ -55,13 +55,17 @@ const reducer = (state = initialState, action) => {
 		}
 		case t.UPDATE_LIST_OF_REPOS: {
 			const repos = action.payload;
+			let viewConfig = state.viewConfig;
+			viewConfig.itemsPerPage = 10;
+			viewConfig.showPages = 1;
+
 			if (!repos){
-				return { ...state, repos, vusibleItems: [] };
+				return { ...state, repos, viewConfig, vusibleItems: [] };
 			}
 			const allLanguages = repos.reduce(
 				(res, curr) => ( !curr.language || res.includes(curr.language) ? res : [ ...res, curr.language]), ['all']
 			);
-			const viewConfig = { ...state.viewConfig, allLanguages };
+			viewConfig = { ...viewConfig, allLanguages };
 			const visibleItems = applyFilterAndSort(repos, viewConfig);
 			return { ...state, repos, viewConfig, visibleItems };
 		}
