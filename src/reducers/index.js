@@ -32,7 +32,7 @@ const applyFilterAndSort = (items, config) => (
 			config.has_topics && !item.has_wiki ||
 			config.language !== 'all' && config.language !== item.language ||
 			((config.type === 'forks' && !item.fork) || (config.type === 'sources' && item.fork)) ||
-			config.updated_at !== null && config.updated_at.getTime() > new Date(item.updated_at).getTime() ||
+			config.updated_at !== null && new Date(config.updated_at).getTime() > new Date(item.updated_at).getTime() ||
 			config.starred_gt > item.stargazers_count)
 	))
 		.sort((first, second) => {

@@ -42,7 +42,7 @@ const ViewConfig = ({config, onChange}) => (
 		<DatePicker
 			value={config.updated_at}
 			label="Modified after: "
-			onChange={(e) => onChange(getNewConfig('updated_at', e.target.value ? new Date(e.target.value) : null, config))}
+			onChange={(e) => onChange(getNewConfig('updated_at', e.target.value ? new Date(e.target.value).getTime() : null, config))}
 		/>
 		<CheckboxWithLabel
 			label="Has open issues"
