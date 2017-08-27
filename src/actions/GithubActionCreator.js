@@ -72,6 +72,12 @@ export default class GithubActionCreator {
 		};
 	}
 
+	static showMore() {
+		return {
+			type: t.SHOW_MORE_ITEMS
+		};
+	}
+
 	static loadRepoDetails(repo) {
 		return dispatch => {
 			dispatch(this.updateDialogInfo(null));

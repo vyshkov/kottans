@@ -2,8 +2,8 @@ import { h } from 'preact';
 import { connect } from '../../connect';
 import Card from '../../components/card';
 import GithubActionCreator from '../../actions/GithubActionCreator';
-import './ListOfRepos.css';
 import SortAndFilter from '../sortandfilter/SortAndFilter.container';
+import './ListOfRepos.css';
 
 const ListOfRepos = props => {
 	if (props.error || !props.repos) return (<div className="kottans-welcome">
@@ -16,18 +16,21 @@ const ListOfRepos = props => {
 			{ props.repos.length === 0  && (
 				<div className="kottans-welcome">No items found by you filter query</div>
 			)}
-			{props.repos && props.repos.map(repo => <Card repo={repo} openDetails={props.openDetails}/>)}
+			{props.repos && props.repos.slice(0, props.numberOfShowed).map(repo => <Card repo={repo} openDetails={props.openDetails}/>)}
+			{ props.numberOfShowed < props.repos.length && <button className="show-more-button" onClick={props.loadMore}>Show more!</button>}
 		</div>
 	);
 };
 
 export default connect(
 	state => ({
+		numberOfShowed: state.viewConfig.itemsPerPage * state.viewConfig.showPages,
 		repos: state.visibleItems,
 		noRepos: !state.repos || state.repos.length === 0,
 		error: state.error
 	}),
 	dispatch => ({
+		loadMore: () => dispatch(GithubActionCreator.showMore()),
 		openDetails: repo => dispatch(GithubActionCreator.loadRepoDetails(repo))
 	})
 )(ListOfRepos);

@@ -4,6 +4,8 @@ const initialState = {
 	search: 'talend',
 	repos: [],
 	viewConfig: {
+		itemsPerPage: 10,
+		showPages: 1,
 		has_open_issues: false,
 		has_topics: false,
 		starred_gt: 0,
@@ -72,9 +74,16 @@ const reducer = (state = initialState, action) => {
 		case t.DIALOG_INFO: {
 			return { ...state, dialogInfo: action.payload };
 		}
+		case t.SHOW_MORE_ITEMS: {
+			const viewConfig = { ...state.viewConfig, showPages: state.viewConfig.showPages + 1 };
+			return { ...state, viewConfig};
+		}
 		case t.VIEW_CONFIG_REPLACE: {
-			const visibleItems = applyFilterAndSort(state.repos, action.payload);
-			return { ...state, visibleItems, viewConfig: action.payload };
+			const viewConfig = action.payload;
+			viewConfig.itemsPerPage = 10;
+			viewConfig.showPages = 1;
+			const visibleItems = applyFilterAndSort(state.repos, viewConfig);
+			return { ...state, visibleItems, viewConfig };
 		}
 		case t.VIEW_CONFIG_UPDATE: {
 			const viewConfig = { ...state.viewConfig, ...action.payload };
