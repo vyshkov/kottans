@@ -26,6 +26,19 @@
 	background-color: aliceblue;
 }
 
+.github-repo-modal .header .forked-from {
+	background-color: #6c82ff;
+	padding: 2px 13px;
+	margin-left: 10px;
+	font-size: 14px;
+	border-radius: 10px;
+	color: white;
+}
+
+.github-repo-modal .header .forked-from a {
+	color: white;
+}
+
 .github-repo-modal .github-repo-modal-content {
 	background-color: white;
 	max-width: 100%;
@@ -61,12 +74,18 @@
 	content: "⨉";
 }
 
+.pulls,
 .contributors {
 	padding: 10px;
 }
 
+.pulls .pulls-header,
 .contributors .contributors-header {
 	font-weight: bold;
+}
+
+.pulls .pull {
+	text-decoration: none;
 }
 
 .contributors > table {
@@ -84,3 +103,10 @@
 }
 
 .contributors > table tr:nth-child(even){background-color: #f2f2f2}
+
+.languages-list .lang {
+	background: aliceblue;
+	display: inline-block;
+	margin: 10px;
+	padding: 10px;
+}

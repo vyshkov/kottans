@@ -28,17 +28,40 @@ const Languages = props => {
 
 	return (
 		<div className="languages-list">
-
+			{Object.keys(props.languages).map(lang => (<div className="lang">{`${lang} | ${props.languages[lang]}`}</div>))}
 		</div>
-	)
-}
+	);
+};
+
+const Pulls  = props => {
+	if (!props.pulls || props.pulls.length === 0) return (
+		<div className="pulls">No PRs found...</div>
+	);
+	return (
+		<div className="pulls">
+			<div className="pulls-header">List of popular PRs:</div>
+			<ol>
+				{props.pulls.map(pull => (
+					<li><a className="pull" href={pull.html_url}>{pull.title}</a></li>
+				))}
+			</ol>
+		</div>
+	);
+};
 
 const Modal = props => (
 	<div className={`github-repo-modal ${props.visible ? 'visible' : ''}`}>
 		{ props.data && <div className="github-repo-modal-content">
 			<div className="close-button" onClick={props.close} />
-			<div className="header"><a href={props.data.url}>{props.data.name}</a></div>
+			<div className="header">
+				<a href={props.data.url}>{props.data.name}</a>
+				{ props.data.repo && props.data.repo.parent && (
+					<span className="forked-from">forked from: <a href={props.data.repo.parent.html_url}>{props.data.repo.parent.name}</a></span>
+				)}
+			</div>
 			<Contributors contributors={props.data.contributors} />
+			<Pulls pulls={props.data.pulls} />
+			<Languages languages={props.data.languages} />
 		</div> }
 	</div>
 );
