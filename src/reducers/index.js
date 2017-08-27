@@ -14,7 +14,8 @@ const initialState = {
 		allTypes: ['all', 'forks', 'sources'],
 		sort: 'name',
 		allSorts: ['name', 'stars', 'issues', 'updated'],
-		order: 'desc'
+		order: 'desc',
+		sortOrders: ['asc', 'desc']
 	}
 };
 
@@ -35,11 +36,12 @@ const applyFilterAndSort = (items, config) => (
 			config.starred_gt > item.stargazers_count)
 	))
 		.sort((first, second) => {
+			const delta = config.order === 'desc' ? 1 : -1;
 			const column = sortMapping[config.sort];
 			const wordA = first[column];
 			const wordB = second[column];
-			if (wordA < wordB) return 1;
-			if (wordA > wordB) return -1;
+			if (wordA < wordB) return delta;
+			if (wordA > wordB) return -delta;
 			return 0;
 		})
 );

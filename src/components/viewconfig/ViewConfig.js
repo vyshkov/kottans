@@ -22,6 +22,12 @@ const ViewConfig = ({config, onChange}) => (
 			onChange={(e) => onChange(getNewConfig('sort', e.target.value, config))}
 		/>
 		<LabelWithSelect
+			label="Sort order: "
+			selected={config.order}
+			items={config.sortOrders}
+			onChange={(e) => onChange(getNewConfig('order', e.target.value, config))}
+		/>
+		<LabelWithSelect
 			label="Language: "
 			selected={config.language}
 			items={config.allLanguages}
