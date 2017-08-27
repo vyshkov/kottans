@@ -55,6 +55,9 @@ const reducer = (state = initialState, action) => {
 		}
 		case t.UPDATE_LIST_OF_REPOS: {
 			const repos = action.payload;
+			if (!repos){
+				return { ...state, repos, vusibleItems: [] };
+			}
 			const allLanguages = repos.reduce(
 				(res, curr) => ( !curr.language || res.includes(curr.language) ? res : [ ...res, curr.language]), ['all']
 			);

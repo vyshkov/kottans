@@ -138,7 +138,7 @@ export default class GithubActionCreator {
 	}
 
 	static findRepos(name, disablePushUrl){
-		if (!name || name.trim().length === 0){
+		if (!name || name.trim().length === 0) {
 			updateUrlState(disablePushUrl, name);
 			return dispatch => {
 				dispatch(this.updateListOfRepos(null));
