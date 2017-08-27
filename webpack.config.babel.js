@@ -54,7 +54,7 @@ module.exports = {
 					use: [
 						{
 							loader: 'css-loader',
-							options: { sourceMap: CSS_MAPS, importLoaders: 1 }
+							options: { sourceMap: CSS_MAPS, importLoaders: 1, minimize: ENV === 'production' }
 						},
 						{
 							loader: `postcss-loader`,
