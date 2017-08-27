@@ -84,10 +84,10 @@ export default class GithubActionCreator {
 					.then(resp => ({repo: resp}))
 					.catch(showError),
 
-				fetch(`${url}/contributors`)
+				fetch(`${url}/contributors?per_page=3`)
 					.then(errorHandler())
 					.then(resp => resp.json())
-					.then(resp => ({contributors: resp.slice(0,3)}))
+					.then(resp => ({contributors: resp}))
 					.catch(showError),
 
 				fetch(`${url}/languages`)
@@ -96,10 +96,10 @@ export default class GithubActionCreator {
 					.then(resp => ({languages: resp}))
 					.catch(showError),
 
-				fetch(`${url}/pulls?sort=popularity&direction=desc&q=is:pr%20is:open`)
+				fetch(`${url}/pulls?sort=popularity&per_page=5&direction=desc&q=is:pr%20is:open`)
 					.then(errorHandler())
 					.then(resp => resp.json())
-					.then(resp => ({pulls: resp.slice(0,5)}))
+					.then(resp => ({pulls: resp}))
 					.catch(showError)
 			]).then(resonses => {
 				dispatch(this.updateDialogInfo({
@@ -152,7 +152,9 @@ export default class GithubActionCreator {
 					return Promise.all(
 						new Array(length)
 							.fill(0)
-							.map((val, i) => (fetch(`${baseUrl}${i+1}`).then(resp => resp.json())))
+							.map((val, i) => (fetch(`${baseUrl}${i+1}`,
+								{ headers: {'Accept': 'application/vnd.github.mercy-preview+json'} })
+								.then(resp => resp.json())))
 					);
 				})
 				.then(resp => {

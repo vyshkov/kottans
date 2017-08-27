@@ -28,7 +28,9 @@ const Languages = props => {
 
 	return (
 		<div className="languages-list">
-			{Object.keys(props.languages).map(lang => (<div className="lang">{`${lang} | ${props.languages[lang]}`}</div>))}
+			{Object.keys(props.languages)
+				.filter(lang => props.languages[lang] > 1023)
+				.map(lang => (<div className="lang">{`${lang} | ${(props.languages[lang] / 1024).toFixed(2)}kb`}</div>))}
 		</div>
 	);
 };

@@ -29,7 +29,7 @@ const sortMapping = {
 const applyFilterAndSort = (items, config) => (
 	items.filter((item) => (
 		!(config.has_open_issues && item.open_issues_count === 0 ||
-			config.has_topics && !item.has_wiki ||
+			config.has_topics && (item.topics === undefined || item.topics.length === 0) ||
 			config.language !== 'all' && config.language !== item.language ||
 			((config.type === 'forks' && !item.fork) || (config.type === 'sources' && item.fork)) ||
 			config.updated_at !== null && new Date(config.updated_at).getTime() > new Date(item.updated_at).getTime() ||
